@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		F01145A82AB099720034E202 /* Tower of Hanoi (Assign-1) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Tower of Hanoi (Assign-1)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F01145AB2AB099720034E202 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F01145B42AB099B10034E202 /* Stackt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stackt.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				F01145AB2AB099720034E202 /* main.cpp */,
+				F01145B42AB099B10034E202 /* Stackt.h */,
 			);
 			path = "Tower of Hanoi (Assign-1)";
 			sourceTree = "<group>";
