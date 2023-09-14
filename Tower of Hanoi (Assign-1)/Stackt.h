@@ -22,7 +22,6 @@ class Stackt{
 public:
     Stackt(int, string);
     Stackt();
-    ~Stackt();
     void push(int);
     int pop();
     bool isEmpty();
@@ -32,10 +31,10 @@ public:
     int getTop();   //returns top element
     void printStack();
 
-    
-    
-    
 };
+
+template <class T>
+void printTowers();
 
 template <class T>
 int Stackt<T>::counter = 0;     //initialising static variable
@@ -81,11 +80,7 @@ Stackt<T>::Stackt(int N, string name){      //Argumentative constructor which ta
     
 }
 
-template <class T>
-Stackt<T>:: ~Stackt()       //destructor
-{
-    delete []arr;
-}
+
 
 
 template <class T>
@@ -158,28 +153,27 @@ string Stackt<T>::getName()    //returns the name of the peg
 }
 
 template <class T>
-void moveDisk(Stackt<T> &Source, Stackt<T> &Target)     //move disk function
-{
-    int disk = Source.getTop();         //sets the disk as the top element of the starting peg
-    Source.pop();
-    Target.push(disk);      //add element to the target peg
-    
-    cout<<"Move disk "<<disk<<" from " << Source.getName() << " to "<< Target.getName()<<endl;
-    Stackt<T>::counter ++;  //increments the counter to indicate one move has been made
-
-}
-
-template <class T>
 void Towers(int N, Stackt<T> &Source, Stackt<T> &Target, Stackt<T>& Aux)        //tower of hanoi function
 {
     if(N==1)        //base case if there is one disk
     {
-        moveDisk(Source, Target);
+        int disk = Source.getTop();         //sets the disk as the top element of the starting peg
+        Source.pop();
+        Target.push(disk);      //add element to the target peg
+        cout<<"Move disk "<<disk<<" from " << Source.getName() << " to "<< Target.getName()<<endl;
+        printTowers(Source, Target, Aux);
+        Stackt<T>::counter ++;
     }
     else        //recursive case
     {
         Towers(N-1, Source, Aux, Target);
-        moveDisk(Source, Target);
+        int disk = Source.getTop();
+        Source.pop();
+        Target.push(disk);
+        
+        cout<<"Move disk "<<disk<<" from " << Source.getName() << " to "<< Target.getName()<<endl;
+        printTowers(Source, Target, Aux);
+        Stackt<T>::counter ++;
         Towers(N-1, Aux, Target, Source);
     }
 }
@@ -187,11 +181,45 @@ void Towers(int N, Stackt<T> &Source, Stackt<T> &Target, Stackt<T>& Aux)        
 template <class T>
 void Stackt<T>:: printStack()       //print function that displays the peg in the correct format
 {
-    int i;
-    for(i = maxSize-1; i>=0; i--)
-        cout<<arr[i]<<endl;
+    if(this->isEmpty())
+    {
+        cout<<"Empty";
+        return;
+    }
     
+    int i;
+    for(i = 0; i<=top; i++)
+        cout<<arr[i]<<" ";
+    
+}
+
+template <class T>
+void printTowers(Stackt<T>&A, Stackt<T>&B, Stackt<T>&C )
+{
+    Stackt<T>* temp[3] = {&A,&B,&C};    //create a temp array of pointers to contain the three pegs
+    
+    //loops and conditions to rearrange the output into the correct order e.g. Start then Aux then End
+    for(int i = 0; i<3; i++)
+    {
+        if(temp[i]->getName() == "Start"){
+            cout<<"Start: ";temp[i]->printStack();cout<<endl;}
+  
+    }
+ 
+    for(int i = 0; i<3; i++)
+    {
+        if(temp[i]->getName() == "Aux"){
+            cout<<"Aux: ";temp[i]->printStack();cout<<endl;}
+    }
+    
+    for(int i = 0; i<3; i++)
+    {
+        if(temp[i]->getName() == "End"){
+            cout<<"End: ";temp[i]->printStack();cout<<endl;}
+    }
+   
     cout<<endl;
+    
 }
 
 #endif /* Header_h */
